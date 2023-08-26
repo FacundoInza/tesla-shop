@@ -10,7 +10,8 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import React, { FC, Suspense, useEffect, useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
+import NextLink from "next/link";
 
 interface Props {
   product: IProduct;
@@ -35,17 +36,19 @@ const ProductCard: FC<Props> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            image={productImage}
-            className="fadein"
-            alt={product.title}
-            onLoad={() => (
-              <Skeleton variant="rectangular" width={210} height={60} />
-            )}
-          />
-        </CardActionArea>
+        <NextLink href="/product/slug" passHref>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              image={productImage}
+              className="fadein"
+              alt={product.title}
+              onLoad={() => (
+                <Skeleton variant="rectangular" width={210} height={60} />
+              )}
+            />
+          </CardActionArea>
+        </NextLink>
       </Card>
 
       <Box sx={{ mt: 1 }} className="fadein">
