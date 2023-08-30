@@ -7,8 +7,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { initialData } from "../database/products";
+
 import ProductList from "@/components/products/ProductList";
+import { initialData } from "@/database/products";
 
 export const metadata: MetadataPage = {
   title: "Tesla Shop",

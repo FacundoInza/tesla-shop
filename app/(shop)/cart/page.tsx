@@ -1,4 +1,5 @@
 import CartList from "@/components/cart/CartList";
+import OrdenSummary from "@/components/cart/OrdenSummary";
 import { MetadataPage } from "@/interfaces";
 import {
   Box,
@@ -25,7 +26,7 @@ const page = () => {
 
       <Grid container>
         <Grid item xs={12} sm={7}>
-          <CartList />
+          <CartList editable />
         </Grid>
         <Grid item xs={12} sm={5}>
           <Card className="summary-card">
@@ -33,13 +34,14 @@ const page = () => {
               <Typography variant="h2">Orden</Typography>
               <Divider sx={{ my: 1 }} />
 
-              {/* Order Summary */}
+              <OrdenSummary />
 
-              <Box sx={{ mt: 3 }}>
-                <Button color="secondary" variant="contained">
-                  Checkout
-                </Button>
-              </Box>
+              <Button
+                color="secondary"
+                sx={{ borderRadius: "45px", width: "100%", mt: 3 }}
+              >
+                Checkout
+              </Button>
             </CardContent>
           </Card>
         </Grid>
