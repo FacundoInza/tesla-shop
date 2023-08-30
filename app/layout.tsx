@@ -1,8 +1,9 @@
 "use client";
-import Navbar from "@/components/ui/Navbar";
-import Sidemenu from "@/components/ui/Sidemenu";
+
 import { lightTheme } from "@/themes";
 import { ThemeProvider } from "@emotion/react";
+
+import "@/styles/globals.css";
 
 import { Roboto } from "next/font/google";
 
@@ -20,21 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <ThemeProvider theme={lightTheme}>
-        <body>
-          <nav>
-            <Navbar />
-          </nav>
-
-          <Sidemenu />
-
-          <main
-            style={{ margin: "80px auto", maxWidth: 1440, padding: "0px 30px" }}
-          >
-            {children}
-          </main>
-
-          <footer>{/* Footer */}</footer>
-        </body>
+        <body>{children}</body>
       </ThemeProvider>
     </html>
   );
