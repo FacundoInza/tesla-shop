@@ -3,11 +3,15 @@ import { Grid } from "@mui/material";
 import React, { FC } from "react";
 import ProductCard from "./ProductCard";
 
-interface Props {
-  products: IProduct[];
+async function getProducts(): Promise<IProduct[]> {
+  const res = await fetch("http://localhost:3000/api/products");
+
+  return res.json();
 }
 
-const ProductList: FC<Props> = ({ products }) => {
+const ProductList: FC = async () => {
+  const products: IProduct[] = await getProducts();
+
   return (
     <Grid container spacing={4} m={0}>
       <Grid container spacing={4}>

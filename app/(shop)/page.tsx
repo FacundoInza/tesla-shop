@@ -1,15 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { MetadataPage } from "@/interfaces";
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 
 import ProductList from "@/components/products/ProductList";
-import { initialData } from "@/database/products";
 
 export const metadata: MetadataPage = {
   title: "Tesla Shop",
@@ -17,7 +10,7 @@ export const metadata: MetadataPage = {
   manifest: "https://example.com/image.png",
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <Typography variant="h1" component="h1">
@@ -26,8 +19,9 @@ export default function Page() {
       <Typography variant="h2" sx={{ mb: 1 }}>
         Todos los productos
       </Typography>
-
-      <ProductList products={initialData.products as any} />
+      <Suspense fallback={<h1>holaaa</h1>}>
+        <ProductList />
+      </Suspense>
     </>
   );
 }
