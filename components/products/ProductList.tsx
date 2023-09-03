@@ -1,24 +1,28 @@
+"use client";
+
 import { IProduct } from "@/interfaces";
-import { Grid } from "@mui/material";
-import React, { FC } from "react";
+import { Grid, Skeleton } from "@mui/material";
+import React, { FC, Suspense } from "react";
 import ProductCard from "./ProductCard";
+import { getProducts } from "@/utils/getProducts";
+import { usePathname } from "next/navigation";
 
-async function getProducts(): Promise<IProduct[]> {
-  const res = await fetch("http://localhost:3000/api/products");
-
-  return res.json();
+interface Props {
+  category?: string;
 }
 
-const ProductList: FC = async () => {
-  const products: IProduct[] = await getProducts();
+const ProductList: FC<Props> = async () => {
+  const pathname = usePathname();
+  console.log(pathname);
+  const products: IProduct[] = await getProducts(
+    `/products?gender=${pathname !== "/" ? pathname.split("/")[2] : "all"}`
+  );
 
   return (
-    <Grid container spacing={4} m={0}>
-      <Grid container spacing={4}>
-        {products.map((product) => (
-          <ProductCard key={product.slug} product={product} />
-        ))}
-      </Grid>
+    <Grid container spacing={4}>
+      {products.map((product) => (
+        <ProductCard key={product.slug} product={product} />
+      ))}
     </Grid>
   );
 };

@@ -3,6 +3,7 @@ import { MetadataPage } from "@/interfaces";
 import { Typography } from "@mui/material";
 
 import ProductList from "@/components/products/ProductList";
+import Loading from "./loading";
 
 export const metadata: MetadataPage = {
   title: "Tesla Shop",
@@ -19,7 +20,7 @@ export default async function Page() {
       <Typography variant="h2" sx={{ mb: 1 }}>
         Todos los productos
       </Typography>
-      <Suspense fallback={<h1>holaaa</h1>}>
+      <Suspense fallback={<Loading />}>
         <ProductList />
       </Suspense>
     </>
