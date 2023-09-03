@@ -1,3 +1,7 @@
+"use client";
+
+import React, { useContext } from "react";
+
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import {
   AppBar,
@@ -10,9 +14,14 @@ import {
   Typography,
 } from "@mui/material";
 import NextLink from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
+import { UiContext } from "@/context";
 
 const Navbar = () => {
+  const asPath = usePathname();
+
+  const { toggleSideMenu } = useContext(UiContext);
+
   return (
     <AppBar>
       <Toolbar>
@@ -35,15 +44,21 @@ const Navbar = () => {
 
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <NextLink href={"/category/men"}>
-            <Button>Hombres</Button>
+            <Button color={asPath === "/category/men" ? "primary" : "info"}>
+              Hombres
+            </Button>
           </NextLink>
 
           <NextLink href={"/category/women"}>
-            <Button>Women</Button>
+            <Button color={asPath === "/category/women" ? "primary" : "info"}>
+              Women
+            </Button>
           </NextLink>
 
           <NextLink href={"/category/kids"}>
-            <Button>Kids</Button>
+            <Button color={asPath === "/category/kid" ? "primary" : "info"}>
+              Kids
+            </Button>
           </NextLink>
         </Box>
 
@@ -61,7 +76,7 @@ const Navbar = () => {
           </IconButton>
         </NextLink>
 
-        <Button>Menu</Button>
+        <Button onClick={toggleSideMenu}>Menu</Button>
       </Toolbar>
     </AppBar>
   );

@@ -10,8 +10,9 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, Suspense, useMemo, useState } from "react";
 import NextLink from "next/link";
+import ProductImage from "./ProductImage";
 
 interface Props {
   product: IProduct;
@@ -22,31 +23,35 @@ const ProductCard: FC<Props> = ({ product }) => {
 
   const productImage = useMemo(() => {
     return isHovered
-      ? `products/${product.images[1]}`
-      : `products/${product.images[0]}`;
+      ? `/products/${product.images[1]}`
+      : `/products/${product.images[0]}`;
   }, [isHovered, product.images]);
 
   return (
     <Grid
       item
-      xs={6}
-      sm={4}
-      key={product.slug}
+      xs={12}
+      sm={6}
+      lg={4}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <NextLink href="/product/slug" passHref>
+        <NextLink href={`/product/${product.slug}`} passHref>
           <CardActionArea>
-            <CardMedia
-              component="img"
-              image={productImage}
-              className="fadein"
-              alt={product.title}
-              onLoad={() => (
-                <Skeleton variant="rectangular" width={210} height={60} />
-              )}
-            />
+            <Suspense
+              fallback={
+                <Skeleton
+                  variant="rectangular"
+                  height={"calc(100vh - 470px)"}
+                />
+              }
+            >
+              <ProductImage
+                producTitle={product.title}
+                productImage={productImage}
+              />
+            </Suspense>
           </CardActionArea>
         </NextLink>
       </Card>

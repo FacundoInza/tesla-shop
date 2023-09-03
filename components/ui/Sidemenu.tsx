@@ -24,11 +24,22 @@ import {
   SearchOutlined,
   VpnKeyOutlined,
 } from "@mui/icons-material";
+import { useContext } from "react";
+import { UiContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 const SideMenu = () => {
+  const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+  const router = useRouter();
+
+  const navigateTo = (url: string) => {
+    toggleSideMenu();
+    router.push(url);
+  };
+
   return (
     <Drawer
-      open={false}
+      open={isMenuOpen}
       anchor="right"
       sx={{ backdropFilter: "blur(4px)", transition: "all 0.5s ease-out" }}
     >
@@ -37,7 +48,7 @@ const SideMenu = () => {
           <ListItem>
             <Input
               type="text"
-              placeholder="Buscar..."
+              placeholder="Search..."
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton aria-label="toggle password visibility">
@@ -52,49 +63,62 @@ const SideMenu = () => {
             <ListItemIcon>
               <AccountCircleOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Perfil"} />
+
+            <ListItemText primary={"Profile"} />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
               <ConfirmationNumberOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Mis Ordenes"} />
+            <ListItemText primary={"My Orders"} />
           </ListItem>
 
-          <ListItem button sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItem
+            button
+            onClick={() => navigateTo("/category/men")}
+            sx={{ display: { xs: "", sm: "none" } }}
+          >
             <ListItemIcon>
               <MaleOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Hombres"} />
+            <ListItemText primary={"Mens"} />
           </ListItem>
 
-          <ListItem button sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItem
+            button
+            onClick={() => navigateTo("/category/women")}
+            sx={{ display: { xs: "", sm: "none" } }}
+          >
             <ListItemIcon>
               <FemaleOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Mujeres"} />
+            <ListItemText primary={"Women"} />
           </ListItem>
 
-          <ListItem button sx={{ display: { xs: "", sm: "none" } }}>
+          <ListItem
+            button
+            onClick={() => navigateTo("/category/kid")}
+            sx={{ display: { xs: "", sm: "none" } }}
+          >
             <ListItemIcon>
               <EscalatorWarningOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Niños"} />
+            <ListItemText primary={"Kids"} />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
               <VpnKeyOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Ingresar"} />
+            <ListItemText primary={"Sign In"} />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
               <LoginOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Salir"} />
+            <ListItemText primary={"Log Out"} />
           </ListItem>
 
           {/* Admin */}
@@ -105,20 +129,20 @@ const SideMenu = () => {
             <ListItemIcon>
               <CategoryOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Productos"} />
+            <ListItemText primary={"Products"} />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <ConfirmationNumberOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Ordenes"} />
+            <ListItemText primary={"Orders"} />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
               <AdminPanelSettings />
             </ListItemIcon>
-            <ListItemText primary={"Usuarios"} />
+            <ListItemText primary={"Users"} />
           </ListItem>
         </List>
       </Box>

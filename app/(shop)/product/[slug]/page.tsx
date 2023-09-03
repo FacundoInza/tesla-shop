@@ -14,7 +14,7 @@ const metadata: MetadataPage = {
 
 const product = initialData.products[0];
 
-const ProductPage = () => {
+const ProductPage = ({ params }: { params: { slug: string } }) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={7}>
